@@ -5,10 +5,13 @@
 from flask import Blueprint
 from divvy.models import db,RaceInfo,race_schema
 import pandas as pd
+import sqlalchemy
 
 api = Blueprint('api',__name__, url_prefix='/api')
 
-data=pd.read_csv('../../../../DivvyChallenge.csv', sep = ',')
+engine=sqlalchemy.create_engine('postgresql+psycopg2://postgres:bazinga17Q#@127.0.0.1:5432/divvy')
+
+data=pd.read_csv('../DivvyChallenge.csv', sep = ',')
 
 @api.route('/getdata')
 def getData():
@@ -17,9 +20,7 @@ def getData():
 @api.route('/race', methods = ['GET'])
 def get_info():
     
-    
-
-    info = RaceInfo.query.get(data)
+    info = RaceInfo.query.get(id)
     
     response = race_schema.dump(info)
     
@@ -30,5 +31,5 @@ def get_info():
 
 @api.route('/postdata', methods = ['POST'])
 def postData():
-    data.to_sql('divvy')
+    data.to_sql('divvy3',engine)
     return 'posted'

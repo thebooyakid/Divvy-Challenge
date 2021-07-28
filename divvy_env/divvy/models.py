@@ -7,7 +7,7 @@ ma = Marshmallow()
 
 class RaceInfo(db.Model):
     # id = db.Column(db.Integer, primary_key = True)
-    trip_id = db.Column(db.Numeric(20), primary_key = True)
+    trip_id = db.Column(db.Numeric(20))#, primary_key = True)
     starttime = db.Column(db.String(20))
     stoptime = db.Column(db.String(20))
     bikeid = db.Column(db.Numeric(20))
@@ -41,6 +41,7 @@ class RaceInfo(db.Model):
 
 class RaceSchema(ma.Schema):
     class Meta:
-        fields = ['id','trip_id','starttime','stoptime','bikeid','from_station_id','from_station_name','to_station_id','to_station_name','usertype','gender','birthday','trip_duration']
+        fields = ['trip_id','starttime','stoptime','bikeid','from_station_id','from_station_name','to_station_id','to_station_name','usertype','gender','birthday','trip_duration']
+    
 
 race_schema = RaceSchema()
